@@ -24,7 +24,6 @@ class Solution:
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         result = [1] * len(nums)
-
         prefix = 1
 
         for i in range(len(nums)):
@@ -54,22 +53,22 @@ class Solution:
 
         buckets = [[] for _ in range(len(nums) + 1)]
 
-        for num, freq in count.items():
+        for freq, num in count.items():
             buckets[freq].append(num)
 
         result = []
 
-        for freq in range(len(buckets) - 1, 0, -1):
-            for num in buckets[freq]:
+        for bucket in range(len(buckets) - 1, 0, -1):
+            for num in buckets[bucket]:
                 result.append(num)
+
                 if len(result) == k:
                     return result
-
         return result
 
-# nums = [1, 1, 1, 2, 2, 3]
-#
-# print(Solution().topKFrequent(nums, 3))
+nums = [1, 1, 1, 2, 2, 3]
+
+print(Solution().topKFrequent(nums, 3))
 
 
 class Solution:
