@@ -1,19 +1,25 @@
 class Solution:
-    def characterReplacement(self, s: str, k: int) -> int:
-        count = {}
-        max_freq = 0
-        longest = 0
-        left = 0
+    def isValid(self, s: str) -> bool:
+        stack = []
+        pairs = {
+            ")": "(",
+            "]": "[",
+            "}": "{"
+        }
 
-        for right in range(len(s)):
-            count[s[right]] = count.get(s[right], 0) + 1
-            max_freq = max(max_freq, count[s[right]])
+        for ch in s:
+            if ch in pairs:
+                if not stack or stack[-1] != pairs[ch]:
+                    return False
 
-            while right - left + 1 - max_freq > k:
-                count[s[left]] -= 1
-                left += 1
+                stack.pop()
+            else:
+                stack.append(ch)
 
-            longest = max(longest, right - left + 1)
-        return longest
+        return len(stack) == 0
 
-print(Solution().characterReplacement("aababba", 1))
+s = "([{}])"
+print(Solution().isValid(s))
+
+#TC:O(n)
+#SC:O(n)
