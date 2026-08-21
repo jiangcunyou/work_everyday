@@ -44,13 +44,13 @@ def print_linked_list(head):
 
     print(" -> ".join(values))
 
-
-list1 = build_linked_list([1, 2, 4])
-list2 = build_linked_list([1, 3, 4])
-
-result = Solution().mergeTwoLists(list1, list2)
-
-print_linked_list(result)
+#
+# list1 = build_linked_list([1, 2, 4])
+# list2 = build_linked_list([1, 3, 4])
+#
+# result = Solution().mergeTwoLists(list1, list2)
+#
+# print_linked_list(result)
 
 #TC: O(m+n)
 #SC: O(1)
