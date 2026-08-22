@@ -1,50 +1,45 @@
-from ice.week03.ListNode import ListNode
+from ice.week03.merge_two_sorted_lists import build_linked_list, print_linked_list
 
 class Solution:
-    def removeNthFromEnd(self, head, n):
-        dummy = ListNode(0, head)
-        slow = dummy
-        fast = dummy
+    def reorderList(self, head) -> None:
+        slow = head
+        fast = head
 
-        for _ in range(n + 1):
-            fast = fast.next
-
-        while fast:
-            fast = fast.next
+        while fast and fast.next:
             slow = slow.next
+            fast = fast.next.next
 
-        slow.next = slow.next.next
+        second = slow.next
+        slow.next = None
 
-        return dummy.next
+        prev = None
+        curr = second
+        while curr:
+            next_node = curr.next
+            curr.next= prev
+            prev = curr
+            curr = next_node
 
-def build_linked_list(values):
-    dummy = ListNode()
-    curr = dummy
+        second = prev
+        first = head
 
-    for value in values:
-        curr.next = ListNode(value)
-        curr = curr.next
+        while second:
+            first_next = first.next
+            second_next = second.next
 
-    return dummy.next
+            first.next = second
+            second.next = first_next
 
-
-def print_linked_list(head):
-    values = []
-
-    while head:
-        values.append(str(head.val))
-        head = head.next
-
-    print(" -> ".join(values))
+            first = first_next
+            second = second_next
 
 
+
+# 1-> 2 -> 3
+# 4 -> 5
 head = build_linked_list([1, 2, 3, 4, 5])
-
-result = Solution().removeNthFromEnd(head, 2)
-
-print_linked_list(result)
-# Expected:
-# 1 -> 2 -> 3 -> 5
+Solution().reorderList(head)
+print_linked_list(head)
 
 #TC: O(n)
 #SC: O(1)
