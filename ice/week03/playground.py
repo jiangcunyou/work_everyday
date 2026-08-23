@@ -1,45 +1,27 @@
-from ice.week03.merge_two_sorted_lists import build_linked_list, print_linked_list
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 class Solution:
-    def reorderList(self, head) -> None:
-        slow = head
-        fast = head
+    def maxDepth(self, root) -> int:
+        if root is None:
+            return 0
 
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+        leftMax = self.maxDepth(root.left)
+        rightMax = self.maxDepth(root.right)
 
-        second = slow.next
-        slow.next = None
+        return max(leftMax, rightMax) + 1
 
-        prev = None
-        curr = second
-        while curr:
-            next_node = curr.next
-            curr.next= prev
-            prev = curr
-            curr = next_node
+root = TreeNode(3)
+root.left = TreeNode(9)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(7)
 
-        second = prev
-        first = head
-
-        while second:
-            first_next = first.next
-            second_next = second.next
-
-            first.next = second
-            second.next = first_next
-
-            first = first_next
-            second = second_next
-
-
-
-# 1-> 2 -> 3
-# 4 -> 5
-head = build_linked_list([1, 2, 3, 4, 5])
-Solution().reorderList(head)
-print_linked_list(head)
+print(Solution().maxDepth(root))
+# Expected: 3
 
 #TC: O(n)
-#SC: O(1)
+#SC: O(h)
