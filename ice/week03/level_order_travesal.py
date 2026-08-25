@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class Solution:
     def levelOrder(self, root):
         if root is None:
@@ -10,9 +11,9 @@ class Solution:
 
         while queue:
             level = []
+            level_size = len(queue)
 
-            for _ in range(len(queue)):
-
+            for _ in range(level_size):
                 cur = queue.popleft()
                 level.append(cur.val)
 
